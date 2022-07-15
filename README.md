@@ -4,4 +4,4 @@ Run command in work directory
 > docker build
 
 After that run 
-> docker run -d <image id or image name>
+> docker run -d (image id or image name)
