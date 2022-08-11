@@ -1,8 +1,7 @@
 from aiogram import types
+from loader import commands
 
 
 async def set_default_commands(dp):
-    await dp.bot.set_my_commands([
-        types.BotCommand("start", "Запустить бота"),
-        types.BotCommand("help", "Помощь")
-    ])
+    command_list = [types.BotCommand(cmd, desc) for cmd, desc in commands.items()]
+    await dp.bot.set_my_commands(command_list)
