@@ -19,6 +19,8 @@ async def errors_handler(update, exception):
         CantDemoteChatCreator, MessageNotModified, MessageToDeleteNotFound,
         MessageTextIsEmpty, RetryAfter,
         CantParseEntities, MessageCantBeDeleted)
+    
+    bot = Update.get_current()
 
     if isinstance(exception, CantDemoteChatCreator):
         logging.debug("Can't demote chat creator")
@@ -27,6 +29,7 @@ async def errors_handler(update, exception):
     if isinstance(exception, MessageNotModified):
         logging.debug('Message is not modified')
         return True
+    
     if isinstance(exception, MessageCantBeDeleted):
         logging.debug('Message cant be deleted')
         return True
@@ -49,8 +52,8 @@ async def errors_handler(update, exception):
 
 
     if isinstance(exception, CantParseEntities):
-        await Update.get_current().message.answer(f'Я в error handler. Ошибка{exception.args}')
-        #logging.exception(f'CantParseEntities: {exception} \nUpdate: {update}')
+        await Update.get_current().message.answer(f'Error: {exception.args}')
+        logging.exception(f'CantParseEntities: {exception} \nUpdate: {update}')
         return True
 
     if isinstance(exception, RetryAfter):
